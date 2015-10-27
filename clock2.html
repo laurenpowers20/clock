@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+</head>
+<body>
+
+    <div id="clock" style ="color:white"></div>
+
+    <script>
+    
+        $(document).ready(function(){
+
+            function getTime() {
+                var date = new Date();
+                var h = date.getHours();
+                var m = date.getMinutes();
+                var s = date.getSeconds();
+                var ms = date.getMilliseconds();
+
+                h = noMilitaryTime(h);
+
+                h = formatValue(h);
+                m = formatValue(m);
+                s = formatValue(s);
+
+                changeColor(m);
+                changeTextColor(m);
+
+                $("#clock").html(h + ":" + m + ":" + s + ":" + ms);
+
+                setTimeout(getTime, 1000);
+            }
+
+            function noMilitaryTime(value) {
+                if (value > 12) {
+                    return value - 12;
+                } else {
+                    return value;
+                }
+            }
+
+
+            function changeColor(value) {
+                if (value%2 == 0) {
+                    $("body").css("background-color", "blue");
+
+            }   else {
+            $("body").css("background-color", "black");
+        }
+    }
+
+            function changeFontSize(randomFont) {
+               var fontSizes = ['9px', '12px', '16px', '19px', '25px', '36px', '48px'];
+               randomFont = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+
+                $("#clock").css("font-size", randomFont);
+                   setTimeout (changeFontSize, 1000);
+            }
+
+            function formatValue(value) {
+                if (value < 10) {
+                    return "0" + value;
+                }
+                return value;
+            }
+
+            function changeTextColor(value) {
+                if (value % 2 == 0) {
+                    $("#clock").css("color", "green");
+            }   else {
+            $("#clock").css("color", "orange");
+        }
+    }
+
+            getTime();
+            changeFontSize();
+            changeTextColor();
+        });
+
+    </script>
+
+</body>
+</html>
